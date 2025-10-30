@@ -6,7 +6,8 @@ project(casadi_kin_dyn VERSION ${VERSION_NUMBER} LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(Eigen3 REQUIRED)
-find_package(casadi 3.5.5 REQUIRED)
+find_package(casadi REQUIRED)
+# find_package(casadi 3.5.5 REQUIRED)
 find_package(urdfdom REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(pinocchio REQUIRED)
@@ -55,11 +56,6 @@ target_include_directories(${LIBRARY_TARGET_NAME}
     "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>"
     ${EIGEN3_INCLUDE_DIR})
 
-
-add_executable(letsee
-    src/letsee.cpp)
-
-target_link_libraries(letsee ${LIBRARY_TARGET_NAME})
 
 # casadi wrapper
 add_subdirectory(src/casadi_wrapper)
