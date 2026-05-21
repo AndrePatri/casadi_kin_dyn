@@ -15,6 +15,25 @@
 #include <pinocchio/algorithm/joint-configuration.hpp>
 #include <pinocchio/algorithm/energy.hpp>
 #include <pinocchio/autodiff/casadi.hpp>
+
+#if EIGEN_VERSION_AT_LEAST(3,5,0)
+namespace Eigen
+{
+namespace numext
+{
+template<typename Scalar>
+struct equal_strict_impl<casadi::Matrix<Scalar>, casadi::Matrix<Scalar>, false, true, false, true>
+{
+    static EIGEN_STRONG_INLINE EIGEN_DEVICE_FUNC bool run(const casadi::Matrix<Scalar> &,
+                                                          const casadi::Matrix<Scalar> &)
+    {
+        return false;
+    }
+};
+}
+}
+#endif
+
 #include <pinocchio/algorithm/aba.hpp>
 
 #include <urdf_parser/urdf_parser.h>
